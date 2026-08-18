@@ -83,13 +83,11 @@ The tube is captured from multiple angles and processed using:
 The dataset contains **2,500 images** labeled for RBC and tube-label regions with a 70/15/15 train-validation-test split. YOLO11n-Seg was selected from three evaluated segmentation models.
 
 ### YOLO Segmentation Results
-<div align="center">
 | Model           |  Precision |     Recall |  mAP50 |   mAP50-95 |
 | --------------- | :--------: | :--------: | :----: | :--------: |
 | YOLOv8n-Seg     |     96.95% |     91.68% | 95.93% |     88.40% |
 | **YOLO11n-Seg** | **98.48%** |     90.80% | 95.31% | **89.27%** |
 | YOLO26n-Seg     |     89.34% | **97.68%** | 94.85% |     86.83% |
-</div>
 
 <p align="center">
   <img src="images/yolo_val_map@50-95.png" width="600">
@@ -108,9 +106,11 @@ The monitoring software was developed using **C# and WPF**.
   <br>
   <em>Figure 7. Main SCADA GUI.</em>
   <br>
+  <br>
   <img src="images/scada_log.png" width="600">
   <br>
   <em>Figure 8. Logging Tab SCADA GUI.</em>
+  <br>
   <br>
   <img src="images/scada_man.png" width="600">
   <br>
@@ -123,7 +123,6 @@ Tube information and processing results are stored in **Microsoft SQL Server**, 
 
 ## Experimental Results
 
-<div align="center">
 | Metric                               |      Result |
 | ------------------------------------ | :---------: |
 | Robot positioning error              |     ~0.1 mm |
@@ -134,7 +133,6 @@ Tube information and processing results are stored in **Microsoft SQL Server**, 
 | System reliability                   |         95% |
 | Throughput without centrifugation    | 179 tubes/h |
 | Throughput with 2-min centrifugation |  66 tubes/h |
-</div>
 
 The liquid-level system was evaluated over 30 measurements for both RBC and plasma volume estimation.
 
@@ -165,10 +163,7 @@ The liquid-level system was evaluated over 30 measurements for both RBC and plas
 ```text
 .
 ├── src/              # C# WPF application
-├── vision/           # Machine vision algorithms
 ├── plc/              # PLC program
-├── models/           # YOLO model
-├── database/         # SQL/database files
 ├── images/           # README figures
 ├── docs/             # Project report
 └── README.md
