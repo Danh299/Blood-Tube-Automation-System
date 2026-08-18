@@ -199,8 +199,8 @@ The integrated system was evaluated in terms of positioning accuracy, liquid-vol
 
 ## Authors
 
-**Nguyen Cong Danh**
-**Nguyen Ngoc Do**
-**Pham Nhut Tien**
+**Nguyen Cong Danh**<br>
+**Nguyen Ngoc Do**<br>
+**Pham Nhut Tien**<br>
 
-Mechatronics Engineering – HCMUTE
+Mechatronics Engineering – HCMC University of Technology and Engineering – HCMUTE
