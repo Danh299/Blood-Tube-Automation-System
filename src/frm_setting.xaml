@@ -1,0 +1,441 @@
+﻿<UserControl x:Class="SCADA_VERTEX.frm_setting"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SCADA_VERTEX"
+             mc:Ignorable="d" 
+             d:DesignHeight="1290.85" d:DesignWidth="1820"
+             Background="#F4F4F4"
+             FontFamily="Arial"
+             FontSize="13"
+             Unloaded="UserControl_Unloaded">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,5,0">
+            <StackPanel>
+
+                <Border BorderBrush="Black" BorderThickness="1" Background="#E0E0E0" Padding="15" Margin="0,0,0,10">
+                    <StackPanel>
+                        <TextBlock Text="PLC CONNECT:" FontWeight="Bold" Margin="0,0,0,15"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                            <TextBlock Text="STATUS:" VerticalAlignment="Center" Width="60"/>
+                            <TextBlock Name="txt_Status_PLC" Text="Disconnected" Background="Red" Foreground="Black" Padding="5,3" Margin="0,0,15,0"/>
+                            <TextBlock Text="Watchdog" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock Name="Tag_Watchdog_Value" Text="75" Background="White" Foreground="Black" Padding="20,3" TextAlignment="Center"/>
+                        </StackPanel>
+
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="IO Server Name:" VerticalAlignment="Center"/>
+                            <TextBox Name="txt_IOServer" Grid.Row="0" Grid.Column="1" Height="25" VerticalContentAlignment="Center"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Channel and Device:" VerticalAlignment="Center"/>
+                            <TextBox Name="txt_ChannelDevice" Grid.Row="2" Grid.Column="1" Height="25" VerticalContentAlignment="Center"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Scan Time (ms):" VerticalAlignment="Center"/>
+                            <TextBox Name="txt_ScanTime" Grid.Row="4" Grid.Column="1" Height="25" VerticalContentAlignment="Center"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Connect" Background="#00B050" Foreground="Black" Height="30" BorderBrush="Black" BorderThickness="1" Click="Btt_Connect_OPC"/>
+                            <Button Grid.Column="2" Content="Disconnect" Background="#FF3333" Foreground="Black" Height="30" BorderBrush="Black" BorderThickness="1"  Click="Btt_Disconnect_OPC"/>
+                            <Canvas>
+                                <Button Name="btt_Save_PLC" Grid.Column="4" Content="Save" Background="Green" Foreground="Black" Height="30" BorderBrush="Black" BorderThickness="1" Canvas.Left="232" HorizontalAlignment="Left" VerticalAlignment="Top" Width="109" Click="PLC_Parameter_Save"/>
+                                <Button Name="btt_Edit_PLC" Grid.Column="4" Content="Edit" Background="#C0C0C0" Foreground="Black" Height="30" BorderBrush="Black" BorderThickness="1" Canvas.Left="232" HorizontalAlignment="Center" VerticalAlignment="Center" Width="109" Click="PLC_Parameter_Edit"/>
+                            </Canvas>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="Black" BorderThickness="1" Background="#E0E0E0" Padding="15" Margin="0,0,0,10">
+                    <StackPanel>
+                        <TextBlock Text="Parameter SQL Server:" FontWeight="Bold" Margin="0,0,0,15"/>
+
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Database Name" VerticalAlignment="Center"/>
+                            <TextBox Name="txt_SqlDB" Grid.Row="0" Grid.Column="1" Height="25" VerticalContentAlignment="Center" Background="#D3D3D3"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="User Name" VerticalAlignment="Center"/>
+                            <TextBox Name="txt_SqlUser" Grid.Row="2" Grid.Column="1" Height="25" VerticalContentAlignment="Center" Background="#D3D3D3"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Password" VerticalAlignment="Center"/>
+                            <PasswordBox Name="txt_SqlPass" Grid.Row="4" Grid.Column="1" Height="25" VerticalContentAlignment="Center" Background="#D3D3D3"/>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Name="btn_Edit_SQL" Content="Edit" Background="#C0C0C0" Foreground="Black" Height="30" Width="80" Margin="0,0,10,0" BorderBrush="Black" BorderThickness="1" Cursor="Hand" Click="btn_Edit_SQL_Click"/>
+                            <Button Name="btn_Save_SQL" Content="Save" Background="#C0C0C0" Foreground="Black" Height="30" Width="80" BorderBrush="Black" BorderThickness="1" Cursor="Hand"  Click="btn_Save_SQL_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="Black" BorderThickness="1" Background="#E0E0E0" Padding="15" Margin="0,0,0,10" Height="770">
+                    <StackPanel>
+                        <Grid Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="8"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="CAMERA" FontWeight="Bold" FontSize="14" Foreground="Black" VerticalAlignment="Center"/>
+
+                            <Button Name="btn_CamOpen"
+                            Grid.Row="0" Grid.Column="1"
+                            Content="OPEN"
+                            Background="#C0C0C0"
+                            Foreground="Black"
+                            Height="30"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Cursor="Hand"
+                            Click="btn_CamOpen_Click"/>
+
+                            <Button Name="btn_CamClose"
+                            Grid.Row="0" Grid.Column="3"
+                            Content="CLOSE"
+                            Background="#C0C0C0"
+                            Foreground="Black"
+                            Height="30"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Cursor="Hand"
+                            Click="btn_CamClose_Click"/>
+
+                            <Button Name="btn_CamLiveOn"
+                            Grid.Row="2" Grid.Column="1"
+                            Content="LIVE ON"
+                            Background="#C0C0C0"
+                            Foreground="Black"
+                            Height="30"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Cursor="Hand"
+                            Click="btn_CamLiveOn_Click"/>
+
+                            <Button Name="btn_CamLiveOff"
+                            Grid.Row="2" Grid.Column="3"
+                            Content="LIVE OFF"
+                            Background="#C0C0C0"
+                            Foreground="Black"
+                            Height="30"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Cursor="Hand"
+                            Click="btn_CamLiveOff_Click"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Exposure Time" VerticalAlignment="Top" Margin="0,5,0,0"/>
+                            <StackPanel Grid.Column="1">
+                                <TextBox x:Name="txt_ExposureTime" Height="25" VerticalContentAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" HorizontalAlignment="Center">
+                                    <RadioButton Name="rad_ExpManual" Content="Manual" Margin="0,0,20,0" IsChecked="True" Checked="CamSetup_Mode_Changed" Unchecked="CamSetup_Mode_Changed"/>
+                                    <RadioButton Name="rad_ExpAuto" Content="Auto" Checked="CamSetup_Mode_Changed" Unchecked="CamSetup_Mode_Changed"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Raw Gain" VerticalAlignment="Top" Margin="0,5,0,0"/>
+                            <StackPanel Grid.Column="1">
+                                <TextBox x:Name="txt_RawGain" Height="25" VerticalContentAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" HorizontalAlignment="Center">
+                                    <RadioButton Name="rad_GainManual" Content="Manual" Margin="0,0,20,0" IsChecked="True" Checked="CamSetup_Mode_Changed" Unchecked="CamSetup_Mode_Changed"/>
+                                    <RadioButton Name="rad_GainAuto" Content="Auto" Checked="CamSetup_Mode_Changed" Unchecked="CamSetup_Mode_Changed"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,15">
+                            <Button x:Name="btn_trigger" Content="Trigger" Background="#C0C0C0" Height="30" Width="80" BorderBrush="Black" BorderThickness="1" Cursor="Hand"  PreviewMouseLeftButtonDown="btnTrigger_pressed" PreviewMouseLeftButtonUp="btnTrigger_notpressed" MouseLeave="btnTrigger_notpressed" Margin="0,0,10,0"/>
+                            <Button Name="btn_CamJog" Content="JOG" Background="#C0C0C0" Height="30" Width="80" BorderBrush="Black" BorderThickness="1" Cursor="Hand" Click="btn_JogCam_Click" Margin="0,0,10,0"/>
+                            <Button Name="btn_CamSave" Content="SAVE" Background="#C0C0C0" Height="30" Width="80" BorderBrush="Black" BorderThickness="1" Cursor="Hand" Click="btn_CamSave_Click" />
+                        </StackPanel>
+
+
+                        <Path Data="M0,0 L400,0" Stroke="Black" StrokeThickness="2" Margin="-15,0,-15,10" Stretch="Fill"/>
+
+                        <TextBlock Text="BARCODE READING" FontWeight="Bold" Foreground="Black" Margin="0,0,0,10"/>
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="80"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="X" VerticalAlignment="Center" TextAlignment="Center"/>
+                            <TextBox x:Name="txt_BcX" Grid.Row="0" Grid.Column="1" Height="25" Margin="0,0,15,0" PreviewTextInput="NumberValidationTextBox"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="W" VerticalAlignment="Center" TextAlignment="Center"/>
+                            <TextBox x:Name="txt_BcW" Grid.Row="0" Grid.Column="3" Height="25" Margin="0,0,15,0" PreviewTextInput="NumberValidationTextBox"/>
+                            <Button Name="btn_BarcodeSave" Grid.Row="0" Grid.Column="4" Content="SAVE" Background="#C0C0C0" Height="25" BorderBrush="Black" BorderThickness="1" Cursor="Hand" Click="btn_BarcodeSave_Click" VerticalAlignment="Bottom"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Y" VerticalAlignment="Center" TextAlignment="Center"/>
+                            <TextBox x:Name="txt_BcY" Grid.Row="2" Grid.Column="1" Height="25" Margin="0,0,15,0" PreviewTextInput="NumberValidationTextBox"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="H" VerticalAlignment="Center" TextAlignment="Center"/>
+                            <TextBox x:Name="txt_BcH" Grid.Row="2" Grid.Column="3" Height="25" Margin="0,0,15,0" PreviewTextInput="NumberValidationTextBox"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="RESULT" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                            <TextBox Name="txt_BcResult" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Height="25" Margin="0,0,15,0" IsReadOnly="True" Background="#D3D3D3" TextAlignment="Center"/>
+                            <Button Name="btn_BarcodeTest" Grid.Row="4" Grid.Column="4" Content="TEST" Background="#C0C0C0" Height="25" BorderBrush="Black" BorderThickness="1" Cursor="Hand" Click="btn_BarcodeTest_Click"/>
+                        </Grid>
+
+                        <Path Data="M0,0 L400,0" Stroke="Black" StrokeThickness="2" Margin="-15,0,-15,10" Stretch="Fill"/>
+
+                        <TextBlock Text="LIQUID MEASUREMENT" FontWeight="Bold" Foreground="Black" Margin="0,0,0,10"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="80"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- ROI -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="X" VerticalAlignment="Center" TextAlignment="Center"/>
+                            <TextBox Name="txt_LqX" Grid.Row="0" Grid.Column="1" Height="25" Margin="0,0,15,0" PreviewTextInput="NumberValidationTextBox"/>
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="W" VerticalAlignment="Center" TextAlignment="Center"/>
+                            <TextBox Name="txt_LqW" Grid.Row="0" Grid.Column="3" Height="25" Margin="0,0,15,0" PreviewTextInput="NumberValidationTextBox"/>
+
+                            <Button Name="btn_LiquidSave"
+                            Grid.Row="0" Grid.Column="4"
+                            Content="SAVE"
+                            Background="#C0C0C0"
+                            Height="25"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Cursor="Hand"
+                            Click="btn_LiquidSave_Click"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Y" VerticalAlignment="Center" TextAlignment="Center"/>
+                            <TextBox Name="txt_LqY" Grid.Row="2" Grid.Column="1" Height="25" Margin="0,0,15,0" PreviewTextInput="NumberValidationTextBox"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="H" VerticalAlignment="Center" TextAlignment="Center"/>
+                            <TextBox Name="txt_LqH" Grid.Row="2" Grid.Column="3" Height="25" Margin="0,0,15,0" PreviewTextInput="NumberValidationTextBox"/>
+
+                            <!-- Parameters -->
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="SCALE" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                            <TextBox Name="txt_LqScale" Grid.Row="4" Grid.Column="1" Height="25" Margin="0,0,15,0"/>
+
+                            <Button Name="btn_LiquidTest"
+            Grid.Row="4" Grid.Column="4"
+            Content="TEST"
+            Background="#C0C0C0"
+            Height="25"
+            BorderBrush="Black"
+            BorderThickness="1"
+            Cursor="Hand"
+            Click="btn_LiquidTest_Click"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="PROFILE TH" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                            <TextBox Name="txt_ProfileThresh" Grid.Row="6" Grid.Column="1" Height="25" Margin="0,0,15,0" Text="20"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="2" Text="LABEL TH" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                            <TextBox Name="txt_LabelThresh" Grid.Row="6" Grid.Column="3" Height="25" Margin="0,0,15,0"/>
+
+                            <!-- Measurement results -->
+                            <TextBlock Grid.Row="8" Grid.Column="0" Text="PLASMA" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                            <TextBox Name="txt_LqPlasma"
+             Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3"
+             Height="25"
+             Margin="15,0,0,0"
+             IsReadOnly="True"
+             Background="#D3D3D3"
+             TextAlignment="Center"/>
+
+                            <TextBlock Grid.Row="10" Grid.Column="0" Text="RBC" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                            <TextBox Name="txt_LqRbc"
+             Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3"
+             Height="25"
+             Margin="15,0,0,0"
+             IsReadOnly="True"
+             Background="#D3D3D3"
+             TextAlignment="Center"/>
+
+                            <!-- New diagnostic results -->
+                            <TextBlock Grid.Row="12" Grid.Column="0" Text="LABEL SCORE" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                            <TextBox Name="txt_LabelScore"
+             Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="3"
+             Height="25"
+             Margin="15,0,0,0"
+             IsReadOnly="True"
+             Background="#D3D3D3"
+             TextAlignment="Center"
+             Text="0.000"/>
+
+                            <TextBlock Grid.Row="14" Grid.Column="0" Text="CONFIDENCE" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                            <TextBox Name="txt_ConfidenceScore"
+             Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="3"
+             Height="25"
+             Margin="15,0,0,0"
+             IsReadOnly="True"
+             Background="#D3D3D3"
+             TextAlignment="Center"
+             Text="0.000"/>
+
+                            <TextBlock Grid.Row="16" Grid.Column="0" Text="FAIL REASON" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                            <TextBox Name="txt_FailReason"
+             Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="4"
+             Margin="15,0,75,-14"
+             IsReadOnly="True"
+             Background="#D3D3D3"
+             TextWrapping="Wrap"
+             VerticalScrollBarVisibility="Auto"/>
+                        </Grid>
+
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.2*"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="1.8*"/>
+            </Grid.RowDefinitions>
+
+            <!-- TOP: Live scene -->
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Background="#E0E0E0">
+                    <TextBlock Text="Camera Live" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                </Border>
+
+                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1,0,1,1" Background="#555555">
+                    <Image x:Name="imgCameraLive" Stretch="Uniform"/>
+                </Border>
+            </Grid>
+
+            <!-- BOTTOM: result image + profile graph -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Image result -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Background="#E0E0E0">
+                        <TextBlock Text="Image Result" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </Border>
+
+                    <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1,0,1,1" Background="#555555">
+                        <Image x:Name="imgCameraResult" Stretch="Uniform"/>
+                    </Border>
+                </Grid>
+
+                <!-- Profile graph -->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Background="#E0E0E0">
+                        <TextBlock Text="Liquid Profile Graph" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </Border>
+
+                    <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1,0,1,1" Background="White">
+                        <Image x:Name="imgLiquidProfileGraph" Stretch="Uniform"/>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</UserControl>

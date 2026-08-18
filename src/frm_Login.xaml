@@ -1,0 +1,33 @@
+﻿<Window x:Class="SCADA_VERTEX.frm_Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:SCADA_VERTEX"
+        mc:Ignorable="d"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Icon="Images/logo_app.ico"
+        Title="Log-in" Height="400" Width="400">
+    <Grid>
+        <StackPanel Margin="20">
+            <materialDesign:PackIcon Kind="UserLockOpen" Width="80" Height="80" HorizontalAlignment="Center" Foreground="blue"/>
+            <TextBlock Text="Login System" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+            <!-- Tài khoản -->
+            <TextBlock Text="User Name:" FontSize="15"/>
+            <TextBox Name="txtUsername" Height="30" VerticalContentAlignment="Center"/>
+
+            <!-- Mật khẩu -->
+            <TextBlock Text="Password:" FontSize="15"/>
+            <PasswordBox Name="txtPassword" Height="30" Margin="0,5,0,10" VerticalContentAlignment="Center"/>
+
+            <!-- Nút Đăng Nhập -->
+            <Button Content="Đăng Nhập"  FontSize="15" Background="Green" Foreground="White" Height="35" Cursor="Hand" Click="BtnLogin_Click"/>
+
+            <!-- Thông báo lỗi -->
+            <TextBlock Name="lblMessage" Foreground="Red" FontSize="14" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>

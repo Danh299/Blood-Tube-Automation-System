@@ -1,0 +1,44 @@
+﻿<Window x:Class="SCADA_VERTEX.frm_JogPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="JOG PENDANT" Height="250" Width="300" 
+        WindowStyle="ToolWindow" Topmost="True" ResizeMode="NoResize">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="AXIS X:" VerticalAlignment="Center" FontWeight="Bold" Grid.Row="0" Grid.Column="0"/>
+        <Button Content="JOG -" Grid.Row="0" Grid.Column="1" Margin="5" Background="#FFDDDD"
+                PreviewMouseLeftButtonDown="btnJogBackX_pressed" PreviewMouseLeftButtonUp="btnJogBackX_notpressed"/>
+        <Button Content="JOG +" Grid.Row="0" Grid.Column="2" Margin="5" Background="#DDFFDD"
+                PreviewMouseLeftButtonDown="btnJogAheadX_pressed" PreviewMouseLeftButtonUp="btnJogAheadX_notpressed"/>
+
+        <TextBlock Text="AXIS Y:" VerticalAlignment="Center" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
+        <Button Content="JOG -" Grid.Row="1" Grid.Column="1" Margin="5" Background="#FFDDDD"
+                PreviewMouseLeftButtonDown="btnJogBackY_pressed" PreviewMouseLeftButtonUp="btnJogBackY_notpressed"/>
+        <Button Content="JOG +" Grid.Row="1" Grid.Column="2" Margin="5" Background="#DDFFDD"
+                PreviewMouseLeftButtonDown="btnJogAheadY_pressed" PreviewMouseLeftButtonUp="btnJogAheadY_notpressed"/>
+
+        <TextBlock Text="AXIS Z:" VerticalAlignment="Center" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
+        <Button Content="JOG -" Grid.Row="2" Grid.Column="1" Margin="5" Background="#FFDDDD"
+                PreviewMouseLeftButtonDown="btnJogBackZ_pressed" PreviewMouseLeftButtonUp="btnJogBackZ_notpressed"/>
+        <Button Content="JOG +" Grid.Row="2" Grid.Column="2" Margin="5" Background="#DDFFDD"
+                PreviewMouseLeftButtonDown="btnJogAheadZ_pressed" PreviewMouseLeftButtonUp="btnJogAheadZ_notpressed"/>
+
+        <TextBlock Text="AXIS R:" VerticalAlignment="Center" FontWeight="Bold" Grid.Row="3" Grid.Column="0"/>
+        <Button Content="JOG -" Grid.Row="3" Grid.Column="1" Margin="5" Background="#FFDDDD"
+                PreviewMouseLeftButtonDown="btnJogBackR_pressed" PreviewMouseLeftButtonUp="btnJogBackR_notpressed"/>
+        <Button Content="JOG +" Grid.Row="3" Grid.Column="2" Margin="5" Background="#DDFFDD"
+                PreviewMouseLeftButtonDown="btnJogAheadR_pressed" PreviewMouseLeftButtonUp="btnJogAheadR_notpressed"/>
+    </Grid>
+</Window>

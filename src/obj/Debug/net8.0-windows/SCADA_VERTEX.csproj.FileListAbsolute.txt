@@ -1,0 +1,17 @@
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\SCADA_VERTEX.csproj.AssemblyReference.cache
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\frm_JogPopup.baml
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\frm_alarm.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\frm_HIS.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\frm_JogPopup.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\frm_Login.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\frm_Logs.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\frm_main.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\frm_manual.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\frm_pos.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\frm_setting.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\frm_teaching.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\MainWindow.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\App.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\SCADA_VERTEX_Content.g.cs
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\SCADA_VERTEX_MarkupCompile.cache
+D:\zzzPROJECT\Graduation-Capstone\src\obj\Debug\net8.0-windows\SCADA_VERTEX_MarkupCompile.lref

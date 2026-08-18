@@ -1,0 +1,432 @@
+﻿<UserControl x:Class="SCADA_VERTEX.frm_pos"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SCADA_VERTEX"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1820"
+             Background="#F4F4F4" FontFamily="Arial" FontSize="14">
+
+    <UserControl.Resources>
+        <Style x:Key="BlockBorder" TargetType="Border">
+            <Setter Property="Background" Value="#D9D9D9"/>
+            <Setter Property="BorderBrush" Value="#333333"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="Margin" Value="8"/>
+        </Style>
+
+        <Style x:Key="HeaderBorder" TargetType="Border">
+            <Setter Property="Background" Value="Green"/>
+            <Setter Property="TextElement.Foreground" Value="White"/>
+            <Setter Property="Padding" Value="0,5"/>
+            <Setter Property="Margin" Value="10,10,10,10"/>
+        </Style>
+
+        <Style x:Key="BtnPulse" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="6"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="#CCC" BorderThickness="1" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#7ED957"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnMove" TargetType="Button" BasedOn="{StaticResource BtnPulse}">
+            <Setter Property="Background" Value="#0054A6"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="#003366" BorderThickness="1" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#00A2E8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ToggleBtnON" TargetType="ToggleButton">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="6"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="#CCC" BorderThickness="1" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="#7ED957"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="TbInput" TargetType="TextBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+        </Style>
+
+        <Style x:Key="TbObserve" TargetType="TextBox">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="#00FF00"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+        </Style>
+    </UserControl.Resources>
+
+    <UniformGrid Rows="2" Columns="3" Margin="10">
+
+        <!-- ======================= AXIS X ======================= -->
+        <Border Style="{StaticResource BlockBorder}" BorderThickness="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Style="{StaticResource HeaderBorder}">
+                    <TextBlock Text="Axis X" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                </Border>
+
+                <UniformGrid Grid.Row="1" Columns="3" Margin="10,0,10,10">
+                    <ToggleButton x:Name="btnOnX" Content="ON" Style="{StaticResource ToggleBtnON}" Checked="btnOnX_Checked" Unchecked="btnOnX_Unchecked"/>
+                    <Button x:Name="btnHomeX" Content="Home" Style="{StaticResource BtnPulse}" Click="btnHomeX_Click"/>
+                    <Button x:Name="btnMoveX" Content="MOVE ABS" Style="{StaticResource BtnMove}" Click="btnMoveX_Click"/>
+                </UniformGrid>
+
+                <ScrollViewer Grid.Row="2" Margin="15,5,15,10" VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Hàng 0: Target Pos -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Target Pos:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtTargetPosX" Text="0.00" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtTargetPosX_KeyDown"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="mm" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 1: Speed -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Speed:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtSpeedX" Text="50" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtSpeedX_KeyDown"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="mm/s" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 2: Accel Time -->
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Accel Time:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtAccX" Text="100" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtAccX_KeyDown"/>
+                        <TextBlock Grid.Row="3" Grid.Column="2" Text="ms" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 3: Decel Time -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Decel Time:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtDecX" Text="100" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtDecX_KeyDown"/>
+                        <TextBlock Grid.Row="4" Grid.Column="2" Text="ms" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 4: Current Pos -->
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Current Pos:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtCurrentPosX" Text="0.00" Style="{StaticResource TbObserve}" Margin="0,0,10,10"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="mm" VerticalAlignment="Center"/>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- ======================= AXIS Y ======================= -->
+        <Border Style="{StaticResource BlockBorder}" BorderThickness="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Style="{StaticResource HeaderBorder}">
+                    <TextBlock Text="Axis Y" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                </Border>
+
+                <UniformGrid Grid.Row="1" Columns="3" Margin="10,0,10,10">
+                    <ToggleButton x:Name="btnOnY" Content="ON" Style="{StaticResource ToggleBtnON}" Checked="btnOnY_Checked" Unchecked="btnOnY_Unchecked"/>
+                    <Button x:Name="btnHomeY" Content="Home" Style="{StaticResource BtnPulse}" Click="btnHomeY_Click"/>
+                    <Button x:Name="btnMoveY" Content="MOVE ABS" Style="{StaticResource BtnMove}" Click="btnMoveY_Click"/>
+                </UniformGrid>
+
+                <ScrollViewer Grid.Row="2" Margin="15,5,15,10" VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Hàng 0: Target Pos -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Target Pos:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtTargetPosY" Text="0.00" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtTargetPosY_KeyDown"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="mm" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 1: Speed -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Speed:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtSpeedY" Text="50" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtSpeedY_KeyDown"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="mm/s" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 2: Accel Time -->
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Accel Time:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtAccY" Text="100" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtAccY_KeyDown"/>
+                        <TextBlock Grid.Row="3" Grid.Column="2" Text="ms" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 3: Decel Time -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Decel Time:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtDecY" Text="100" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtDecY_KeyDown"/>
+                        <TextBlock Grid.Row="4" Grid.Column="2" Text="ms" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 4: Current Pos -->
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Current Pos:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtCurrentPosY" Text="0.00" Style="{StaticResource TbObserve}" Margin="0,0,10,10"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="mm" VerticalAlignment="Center"/>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- ======================= AXIS Z ======================= -->
+        <Border Style="{StaticResource BlockBorder}" BorderThickness="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Style="{StaticResource HeaderBorder}">
+                    <TextBlock Text="Axis Z" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                </Border>
+
+                <UniformGrid Grid.Row="1" Columns="3" Margin="10,0,10,10">
+                    <ToggleButton x:Name="btnOnZ" Content="ON" Style="{StaticResource ToggleBtnON}" Checked="btnOnZ_Checked" Unchecked="btnOnZ_Unchecked"/>
+                    <Button x:Name="btnHomeZ" Content="Home" Style="{StaticResource BtnPulse}" Click="btnHomeZ_Click"/>
+                    <Button x:Name="btnMoveZ" Content="MOVE ABS" Style="{StaticResource BtnMove}" Click="btnMoveZ_Click"/>
+                </UniformGrid>
+
+                <ScrollViewer Grid.Row="2" Margin="15,5,15,10" VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Hàng 0: Target Pos -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Target Pos:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtTargetPosZ" Text="0.00" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtTargetPosZ_KeyDown"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="mm" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 1: Speed -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Speed:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtSpeedZ" Text="30" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtSpeedZ_KeyDown"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="mm/s" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 2: Accel Time -->
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Accel Time:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtAccZ" Text="150" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtAccZ_KeyDown"/>
+                        <TextBlock Grid.Row="3" Grid.Column="2" Text="ms" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 3: Decel Time -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Decel Time:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtDecZ" Text="150" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtDecZ_KeyDown"/>
+                        <TextBlock Grid.Row="4" Grid.Column="2" Text="ms" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 4: Current Pos -->
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Current Pos:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtCurrentPosZ" Text="0.00" Style="{StaticResource TbObserve}" Margin="0,0,10,10"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="mm" VerticalAlignment="Center"/>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- ======================= AXIS R ======================= -->
+        <Border Style="{StaticResource BlockBorder}" BorderThickness="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Style="{StaticResource HeaderBorder}">
+                    <TextBlock Text="Axis R" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                </Border>
+
+                <UniformGrid Grid.Row="1" Columns="3" Margin="10,0,10,10">
+                    <ToggleButton x:Name="btnOnR" Content="ON" Style="{StaticResource ToggleBtnON}" Checked="btnOnR_Checked" Unchecked="btnOnR_Unchecked"/>
+                    <Button x:Name="btnHomeR" Content="Home" Style="{StaticResource BtnPulse}" Click="btnHomeR_Click"/>
+                    <Button x:Name="btnMoveR" Content="MOVE ABS" Style="{StaticResource BtnMove}" Click="btnMoveR_Click"/>
+                </UniformGrid>
+
+                <ScrollViewer Grid.Row="2" Margin="15,5,15,10" VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Hàng 0: Target Pos -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Target Pos:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtTargetPosR" Text="0.00" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtTargetPosR_KeyDown"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="deg" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 1: Speed -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Speed:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtSpeedR" Text="100" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtSpeedR_KeyDown"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="deg/s" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 2: Accel Time -->
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Accel Time:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtAccR" Text="200" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtAccR_KeyDown"/>
+                        <TextBlock Grid.Row="3" Grid.Column="2" Text="ms" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 3: Decel Time -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Decel Time:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtDecR" Text="200" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtDecR_KeyDown"/>
+                        <TextBlock Grid.Row="4" Grid.Column="2" Text="ms" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 4: Current Pos -->
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Current Pos:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtCurrentPosR" Text="0.00" Style="{StaticResource TbObserve}" Margin="0,0,10,10"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="deg" VerticalAlignment="Center"/>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- ======================= SERVO MOTOR ======================= -->
+        <Border Style="{StaticResource BlockBorder}" BorderThickness="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Style="{StaticResource HeaderBorder}">
+                    <TextBlock Text="Servo Motor" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                </Border>
+
+                <UniformGrid Grid.Row="1" Columns="3" Margin="10,0,10,10">
+                    <ToggleButton x:Name="btnServoOn" Content="Servo ON" Style="{StaticResource ToggleBtnON}" Checked="btnServoOn_Checked" Unchecked="btnServoOn_Unchecked"/>
+                    <Button x:Name="btnServoHome" Content="Home" Style="{StaticResource BtnPulse}" Click="btnServoHome_Click"/>
+                    <Button x:Name="btnMoveServo" Content="MOVE ABS" Style="{StaticResource BtnMove}" Click="btnMoveServo_Click"/>
+                </UniformGrid>
+
+                <ScrollViewer Grid.Row="2" Margin="15,5,15,10" VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Hàng 0: Target Pos -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Target Pos:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtTargetPosServo" Text="0.0" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtTargetPosServo_KeyDown"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="deg" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 1: Speed -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Speed:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtSpeedServo" Text="1500" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtSpeedServo_KeyDown"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="RPM" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 2: Accel Time -->
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Accel Time:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtAccServo" Text="500" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtAccServo_KeyDown"/>
+                        <TextBlock Grid.Row="3" Grid.Column="2" Text="ms" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 3: Decel Time -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Decel Time:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtDecServo" Text="500" Style="{StaticResource TbInput}" Margin="0,0,10,10" KeyDown="txtDecServo_KeyDown"/>
+                        <TextBlock Grid.Row="4" Grid.Column="2" Text="ms" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Hàng 4: Current Pos -->
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Current Pos:" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtCurrentPosServo" Text="0.00" Style="{StaticResource TbObserve}" Margin="0,0,10,10"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="deg" VerticalAlignment="Center"/>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+    </UniformGrid>
+</UserControl>

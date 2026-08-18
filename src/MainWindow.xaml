@@ -1,0 +1,185 @@
+﻿<Window x:Class="SCADA_VERTEX.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:SCADA_VERTEX"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        FontFamily="Arial" FontSize="14"
+        Icon="Images/logo_app.ico"
+        Title="SCADA MACHINE" Height="1080" Width="1920">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#5CE1E6" Height="110">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="130"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Padding="10,5" Margin="15,10" MinWidth="280" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel Margin="0,0,15,0" VerticalAlignment="Center">
+                        <TextBlock Text="VERTEX" Foreground="#00A2E8" FontWeight="Bold" FontSize="25"/>
+                        <TextBlock Text="AUTOMATION" FontSize="15" Foreground="Black" FontWeight="SemiBold"/>
+                    </StackPanel>
+                    <materialDesign:PackIcon Kind="HospitalBox" Width="55" Height="70" Foreground="Green"/>
+                    <Image Source="Images/LOGO_TRUONG_2.png" 
+                           Height="60" Margin="15,0,0,0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </StackPanel>
+            </Border>
+            <Viewbox Grid.Column="1" HorizontalAlignment="Left" Stretch="Uniform" StretchDirection="DownOnly" Margin="15,0,10,0">
+                <StackPanel VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
+                    <TextBlock Text="HCMC UNIVERSITY OF TECHNOLOGY AND ENGINEERING" Foreground="#D32F2F" FontWeight="Bold" FontSize="28" Margin="0,0,0,4"/>
+                    <TextBlock Text="PRE-ANALYTICAL MACHINE" Foreground="#0054A6" FontWeight="Bold" FontSize="24" Margin="0,0,0,4"/>
+                    <TextBlock Text="Version 1.0.0.0" Foreground="Black" FontWeight="Bold" FontSize="18"/>
+                </StackPanel>
+            </Viewbox>
+
+            <Border x:Name="bdrMainStatus" Grid.Column="2" Background="#FF7F27" Width="110" Height="55" CornerRadius="6" Margin="10,0,15,0" BorderBrush="Black" BorderThickness="1">
+                <TextBlock x:Name="txtMainStatus" Text="IDLE" Foreground="White" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+
+            <Border x:Name="bdrGlobalMessage" Grid.Column="3" Background="#F5F5F5" BorderBrush="Black" BorderThickness="1" CornerRadius="5" 
+                    Margin="10,25,20,25" Padding="15,0" HorizontalAlignment="Right" MaxWidth="650" MinWidth="400">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:PackIcon x:Name="iconGlobal" Grid.Column="0" Kind="InformationOutline" Width="24" Height="24" VerticalAlignment="Center" Foreground="#0054A6" Margin="0,0,10,0"/>
+                    <TextBlock x:Name="txtGlobalTime" Grid.Column="1" Text="[11:52:30]" FontSize="14" FontWeight="Bold" Foreground="Black" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBlock x:Name="txtGlobalMessage" Grid.Column="2" Text="Waiting for system initialization..." FontSize="14" FontWeight="SemiBold" Foreground="Black" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+
+                    <Button x:Name="btnAckAlarm" Grid.Column="3" Content="ACK" Background="#FFC107" Foreground="Black" FontWeight="Bold" FontSize="13" Height="30" Padding="10,0" Visibility="Collapsed" Margin="10,0,0,0"/>
+                </Grid>
+            </Border>
+
+            <StackPanel Grid.Column="4" VerticalAlignment="Center" Margin="0,0,15,0">
+                <Border Background="#0054A6" CornerRadius="3" Height="26" Margin="0,0,0,5">
+                    <TextBlock Name="tbl_Role" Text="ROLE: ----" Foreground="White" FontWeight="Bold" FontSize="12" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0"/>
+                </Border>
+                <Button Content="LOGIN" Background="#FF7F27" Foreground="White" FontWeight="Bold" FontSize="13" Height="30" Padding="0" Click="btn_Login_Click" Cursor="Hand"/>
+            </StackPanel>
+        </Grid>
+
+        <TabControl Grid.Row="1" Background="White" BorderThickness="0,1,0,1" BorderBrush="Gray" SelectionChanged="TabControl_SelectionChanged">
+            <TabItem Name="tabMain">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="8,5">
+                        <materialDesign:PackIcon Kind="Home" Width="22" Height="22" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Main" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame x:Name="frameMain" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+
+            <TabItem Name="tabLogs">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="8,5">
+                        <materialDesign:PackIcon Kind="Database" Width="22" Height="22" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Logs" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame x:Name="frameLogs" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+
+            <TabItem Name="tabSetting" >
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="8,5">
+                        <materialDesign:PackIcon Kind="Settings" Width="22" Height="22" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Setting" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame x:Name="frameSetting" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+
+            <TabItem Name="tabTeaching">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="8,5">
+                        <materialDesign:PackIcon Kind="Target" Width="22" Height="22" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Teaching" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame x:Name="frameTeaching" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+
+            <TabItem Name ="tabManual">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="8,5">
+                        <materialDesign:PackIcon Kind="Tune" Width="22" Height="22" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Man" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame x:Name="frameManual" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+
+            <TabItem Name="tabPos">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="8,5">
+                        <materialDesign:PackIcon Kind="AxisArrow" Width="22" Height="22" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Position" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame x:Name="framePos" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+
+            <TabItem Name="tabAlarm">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="8,5">
+                        <materialDesign:PackIcon Kind="BellAlert" Width="22" Height="22" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Alarm" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame x:Name="frameAlarm" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+
+            <TabItem Name="tabHIS">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="8,5">
+                        <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="22" Height="22" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="HIS Input" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame x:Name="frameHIS" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+        </TabControl>
+
+
+        <StatusBar Grid.Row="2" Background="#5CE1E6" Foreground="Black" FontSize="12" FontWeight="SemiBold" Padding="15,0">
+            <StatusBarItem>
+                <TextBlock Name="txtUserName" Text="User: Admin"/>
+            </StatusBarItem>
+            <Separator BorderBrush="Black" Margin="10,0"/>
+            <StatusBarItem>
+                <TextBlock Name="txtPLCStatus" Text="PLC: Disconnected" Foreground="Black" />
+            </StatusBarItem>
+            <Separator BorderBrush="Black" Margin="10,0"/>
+            <StatusBarItem>
+                <TextBlock Text="SQL: Connected" Foreground="Black"/>
+            </StatusBarItem>
+            <Separator BorderBrush="Black" Margin="10,0"/>
+            <StatusBarItem>
+                <TextBlock Text="Camera: Connected" Foreground="Black"/>
+            </StatusBarItem>
+            <Separator BorderBrush="Black" Margin="10,0"/>
+
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock Name="txtclock" Text=" | dd/MM/yyyy HH:mm:ss"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
