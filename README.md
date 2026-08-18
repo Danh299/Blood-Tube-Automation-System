@@ -148,6 +148,24 @@ The liquid-level system was evaluated over 30 measurements for both RBC and plas
   <em>Figure 11. Liquid Measurement after Centrifugation.</em>
 </p>
 
+## System Performance
+
+The integrated system was evaluated in terms of positioning accuracy, liquid-volume measurement, processing throughput, and operational reliability.
+
+| Metric | Result |
+|:---|:---:|
+| Robot positioning error | ~0.1 mm |
+| Liquid-volume MAE | 0.052 mL |
+| Throughput without centrifugation | 179 tubes/h |
+| Throughput with 2-min centrifugation | 66 tubes/h |
+| System reliability | 95% |
+
+<p align="center">
+  <img src="images/system_performance.png" width="600">
+  <br>
+  <em>Figure 12. System Throughput and Reliability Performance.</em>
+</p>
+
 ## Technologies
 
 **Computer Vision:** YOLO11n-Seg, OpenCV, Image Segmentation, Sobel Edge Detection
