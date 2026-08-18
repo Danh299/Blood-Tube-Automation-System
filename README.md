@@ -40,20 +40,6 @@ A Mitsubishi FX3U PLC coordinates the mechanical system and a 4-axis Cartesian r
   <em>Figure 2. Automated pre-analytical workflow.</em>
 </p>
 
-```text
-Tube Feeding
-     ↓
-Barcode Reading
-     ↓
-Centrifugation
-     ↓
-Liquid-Level Measurement
-     ↓
-Decapping
-     ↓
-Tube Sorting
-```
-
 ## Mechanical System
 
 The system uses a **4-axis Cartesian robot** with three linear axes (X, Y, Z) and one rotational axis (R). The R-axis rotates the tube to different viewing angles for barcode and liquid-level inspection.
@@ -88,26 +74,8 @@ The robot rotates each tube through multiple viewing angles to improve barcode v
 **2. RBC and Plasma Level Measurement**
 The tube is captured from multiple angles and processed using:
 
-```text
-Image Acquisition
-      ↓
-YOLO11n-Seg
-      ↓
-RBC + Label Segmentation
-      ↓
-Tilt Correction
-      ↓
-Automatic ROI
-      ↓
-Sobel-Y Edge Profile
-      ↓
-Liquid Boundary Detection
-      ↓
-RBC / Plasma Volume
-```
-
 <p align="center">
-  <img src="images/liquid_level_pipeline.png" width="600">
+  <img src="images/liquid_measurement_pipeline.png" width="600">
   <br>
   <em>Figure 5. RBC and plasma liquid-level measurement pipeline.</em>
 </p>
@@ -123,7 +91,8 @@ The dataset contains **2,500 images** labeled for RBC and tube-label regions wit
 | YOLO26n-Seg     |     89.34% | **97.68%** | 94.85% |     86.83% |
 
 <p align="center">
-  <img src="images/yolo_comparison.png" width="600">
+  <img src="images/yolo_val_map@50-95.png" width="600">
+  <img src="images/yolo_val_loss.png" width="600">
   <br>
   <em>Figure 6. Comparison of YOLO segmentation models.</em>
 </p>
@@ -135,7 +104,13 @@ The monitoring software was developed using **C# and WPF**.
 <p align="center">
   <img src="images/scada_main.png" width="600">
   <br>
-  <em>Figure 7. Main SCADA interface.</em>
+  <em>Figure 7. Main SCADA GUI.</em>
+  <img src="images/scada_log.png" width="600">
+  <br>
+  <em>Figure 8. Logging Tab SCADA GUI.</em>
+  <img src="images/scada_manual.png" width="600">
+  <br>
+  <em>Figure 9. Manual Tab SCADA GUI.</em>
 </p>
 
 The SCADA application provides real-time machine monitoring, manual/automatic control, robot position visualization, vision results, alarms, production statistics, and emergency controls.
@@ -160,7 +135,7 @@ The liquid-level system was evaluated over 30 measurements for both RBC and plas
 <p align="center">
   <img src="images/liquid_correlation.png" width="600">
   <br>
-  <em>Figure 8. Correlation between reference and measured RBC and plasma volumes.</em>
+  <em>Figure 10. Correlation between reference and measured RBC and plasma volumes.</em>
 </p>
 
 ## Technologies
@@ -189,11 +164,13 @@ The liquid-level system was evaluated over 30 measurements for both RBC and plas
 
 ## Demo
 
-[Watch Demo Video](YOUR_VIDEO_LINK)
+[Watch Demo Video](https://www.youtube.com/watch?v=yusFM5NH5IE&t=38s)
 
 ## Project Report
 
-[View Full Project Report](docs/Blood_Tube_Automation_Report.pdf)
+[View Full Project Report](docs/Báo-Cáo.pdf)
+[View Brief Project Report](docs/Tóm-Tắt.pdf)
+[View Project Poster](docs/Poster.pdf)
 
 ## Authors
 
