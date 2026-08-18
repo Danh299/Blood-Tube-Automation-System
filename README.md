@@ -45,7 +45,7 @@ A Mitsubishi FX3U PLC coordinates the mechanical system and a 4-axis Cartesian r
 The system uses a **4-axis Cartesian robot** with three linear axes (X, Y, Z) and one rotational axis (R). The R-axis rotates the tube to different viewing angles for barcode and liquid-level inspection.
 
 <p align="center">
-  <img src="images/cad_overview.png" width="600">
+  <img src="images/cad_design.png" width="600">
   <br>
   <em>Figure 3. Mechanical design of the complete system.</em>
 </p>
@@ -55,7 +55,7 @@ Main mechanisms include the Cartesian robot, step feeder, conveyor, swing-out ce
 ## Control System
 
 <p align="center">
-  <img src="images/electrical_architecture.png" width="600">
+  <img src="images/electrical_diagram.png" width="600">
   <br>
   <em>Figure 4. Electrical and control system architecture.</em>
 </p>
@@ -83,15 +83,17 @@ The tube is captured from multiple angles and processed using:
 The dataset contains **2,500 images** labeled for RBC and tube-label regions with a 70/15/15 train-validation-test split. YOLO11n-Seg was selected from three evaluated segmentation models.
 
 ### YOLO Segmentation Results
-
+<p align="center">
 | Model           |  Precision |     Recall |  mAP50 |   mAP50-95 |
 | --------------- | ---------: | ---------: | -----: | ---------: |
 | YOLOv8n-Seg     |     96.95% |     91.68% | 95.93% |     88.40% |
 | **YOLO11n-Seg** | **98.48%** |     90.80% | 95.31% | **89.27%** |
 | YOLO26n-Seg     |     89.34% | **97.68%** | 94.85% |     86.83% |
+</p>
 
 <p align="center">
   <img src="images/yolo_val_map@50-95.png" width="600">
+  <br>
   <img src="images/yolo_val_loss.png" width="600">
   <br>
   <em>Figure 6. Comparison of YOLO segmentation models.</em>
@@ -105,10 +107,12 @@ The monitoring software was developed using **C# and WPF**.
   <img src="images/scada_main.png" width="600">
   <br>
   <em>Figure 7. Main SCADA GUI.</em>
+  <br>
   <img src="images/scada_log.png" width="600">
   <br>
   <em>Figure 8. Logging Tab SCADA GUI.</em>
-  <img src="images/scada_manual.png" width="600">
+  <br>
+  <img src="images/scada_man.png" width="600">
   <br>
   <em>Figure 9. Manual Tab SCADA GUI.</em>
 </p>
@@ -119,6 +123,7 @@ Tube information and processing results are stored in **Microsoft SQL Server**, 
 
 ## Experimental Results
 
+<p align="center">
 | Metric                               |      Result |
 | ------------------------------------ | ----------: |
 | Robot positioning error              |     ~0.1 mm |
@@ -129,13 +134,20 @@ Tube information and processing results are stored in **Microsoft SQL Server**, 
 | System reliability                   |         95% |
 | Throughput without centrifugation    | 179 tubes/h |
 | Throughput with 2-min centrifugation |  66 tubes/h |
+</p>
 
 The liquid-level system was evaluated over 30 measurements for both RBC and plasma volume estimation.
 
 <p align="center">
-  <img src="images/liquid_correlation.png" width="600">
+  <img src="images/liquid_correlation_graph.png" width="600">
   <br>
   <em>Figure 10. Correlation between reference and measured RBC and plasma volumes.</em>
+</p>
+
+<p align="center">
+  <img src="images/liquid_measurement.png" width="600">
+  <br>
+  <em>Figure 11. Liquid Measurement after Centrifugation.</em>
 </p>
 
 ## Technologies
@@ -168,8 +180,8 @@ The liquid-level system was evaluated over 30 measurements for both RBC and plas
 
 ## Project Report
 
-[View Full Project Report](docs/Báo-Cáo.pdf)
-[View Brief Project Report](docs/Tóm-Tắt.pdf)
+[View Full Project Report](docs/Báo-Cáo.pdf)<br>
+[View Brief Project Report](docs/Tóm-Tắt.pdf)<br>
 [View Project Poster](docs/Poster.pdf)
 
 ## Authors
